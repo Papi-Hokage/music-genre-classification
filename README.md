@@ -1,22 +1,31 @@
-# Music Genre Classification Using Machine Learning
+<div align="center">
 
-**CAP 4630 - Introduction to Artificial Intelligence**  
-**Fall 2025 - Final Project**  
-**Student:** Andres Hernandez  
-**Instructor:** Dr. Ahmed Imteaj
+# 🎵 Music Genre Classification
+
+### *AI-Powered Audio Classification with Machine Learning*
+
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+
+[📊 Demo](#-demo-scenarios) • [🚀 Quick Start](#-quick-start) • [📈 Results](#-results)
+
+</div>
 
 ---
 
-## 📋 Project Overview
+## 📋 Overview
 
-This project implements a supervised machine learning system for classifying music tracks into genres using audio features. The system extracts Mel-Frequency Cepstral Coefficients (MFCCs) from audio files and trains multiple classification models to predict genre labels.
+A supervised machine learning system that classifies music tracks into **10 genres** using **Mel-Frequency Cepstral Coefficients (MFCCs)** as audio features. Implements and compares multiple classification algorithms with hyperparameter optimization.
 
-### 🎯 Objectives
+### ✨ Key Features
 
-- Classify audio tracks into 10 musical genres using MFCC-based features
-- Compare performance of multiple machine learning algorithms
-- Optimize models through systematic hyperparameter tuning
-- Achieve measurable performance with comprehensive evaluation metrics
+- 🎯 **Multi-Model Comparison** - KNN, Decision Tree, Random Forest, SVM
+- 🔧 **Hyperparameter Tuning** - GridSearchCV with cross-validation
+- 📊 **Comprehensive Metrics** - Accuracy, Precision, Recall, F1-Score, Confusion Matrix
+- ⚡ **Fast Execution** - Optimized for 7-10 minute total runtime
+- 📈 **Rich Visualizations** - Performance charts, confusion matrices, per-genre analysis
 
 ---
 
@@ -39,82 +48,142 @@ After downloading, extract the dataset and update the `DATASET_PATH` variable in
 
 ---
 
-## 🛠️ Technologies Used
+## 🏁 Quick Start
 
-- **Python 3.8+**
-- **Audio Processing:** librosa
-- **Machine Learning:** scikit-learn
-- **Data Analysis:** pandas, numpy
-- **Visualization:** matplotlib, seaborn
-- **Development:** Jupyter Notebook
-
----
-
-## 🚀 Installation & Setup
-
-### 1. Clone the Repository
+### 1️⃣ Clone & Navigate
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/music-genre-classification.git
+git clone https://github.com/Papi-Hokage/music-genre-classification.git
 cd music-genre-classification
 ```
 
-### 2. Create Virtual Environment (Recommended)
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-### 3. Install Dependencies
+### 2️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Download Dataset
+### 3️⃣ Download GTZAN Dataset
 
-Download the GTZAN dataset and place it in the project directory. Your structure should look like:
+Download from [Kaggle](https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification) or [Marsyas](http://marsyas.info/downloads/datasets.html)
 
-```
-music-genre-classification/
-├── Music Genre Final Project.ipynb
-├── GTZAN/
-│   └── genres_original/
-│       ├── blues/
-│       ├── classical/
-│       ├── country/
-│       └── ... (10 genre folders)
-├── requirements.txt
-├── README.md
-└── .gitignore
+### 4️⃣ Run the Notebook
+
+```bash
+jupyter notebook "Music Genre Final Project.ipynb"
 ```
 
-### 5. Update Dataset Path
+### 5️⃣ Execute Cells
 
-Open the notebook and update the `DATASET_PATH` variable with your local path.
+Run cells sequentially - **Total runtime: ~7-10 minutes**
 
 ---
 
-## 📊 Methodology
+## 🎬 Demo Scenarios
 
-### Pipeline Overview
+### 1. Feature Extraction in Action
 
-1. **Audio Loading** - Load WAV files at 22,050 Hz sampling rate
-2. **MFCC Extraction** - Extract 13 MFCC coefficients per audio file
-3. **Feature Aggregation** - Compute mean and standard deviation across time frames
-4. **Data Splitting** - 80% training, 20% testing with stratification
-5. **Model Training** - Train KNN, Decision Tree, Random Forest, SVM
-6. **Hyperparameter Tuning** - GridSearchCV with 5-fold cross-validation
-7. **Evaluation** - Accuracy, Precision, Recall, F1-Score, Confusion Matrix
-8. **Analysis** - Identify misclassifications and performance patterns
+```python
+# Extract MFCCs from audio
+mfcc = librosa.feature.mfcc(y=audio, sr=22050, n_mfcc=13)
+features = np.concatenate([np.mean(mfcc, axis=1), np.std(mfcc, axis=1)])
+```
 
-### Models Implemented
+• Watch features being extracted from 1,000 audio tracks  
+• Observe progress indicators for each 100 files processed  
+• Verify feature matrix shape: `(1000, 26)`
 
-- **K-Nearest Neighbors (KNN)** - Instance-based learning
-- **Decision Tree** - Interpretable decision boundaries
-- **Random Forest** - Ensemble method with bootstrap aggregation
-- **Support Vector Machine (SVM)** - Maximum margin classifier
+### 2. Model Training & Comparison
+
+```python
+# Train multiple models
+models = ['KNN', 'Decision Tree', 'Random Forest', 'SVM']
+# Compare performance metrics
+```
+
+• See baseline vs tuned model performance  
+• Visualize accuracy improvements after hyperparameter tuning  
+• Identify best performing model
+
+### 3. Confusion Matrix Analysis
+
+• Discover which genres are confused with each other  
+• Rock ↔ Country (similar instrumentation)  
+• Classical ↔ Jazz (harmonic structures)  
+• View detailed misclassification patterns
+
+---
+
+## 🎵 Dataset
+
+**GTZAN Genre Collection**
+
+| Property | Value |
+|----------|-------|
+| **Total Tracks** | 1,000 (100 per genre) |
+| **Genres** | blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, rock |
+| **Format** | WAV files |
+| **Duration** | 30 seconds per track |
+| **Sampling Rate** | 22,050 Hz |
+| **Balance** | Perfectly balanced (equal samples per class) |
+
+---
+
+## 🏗️ Architecture Overview
+
+### Pipeline Flow
+
+```
+┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│   Audio     │ ─► │    MFCC      │ ─► │  Features   │
+│   Files     │    │  Extraction  │    │ (Mean+Std)  │
+│  (1000)     │    │  (13 coef)   │    │  (26-dim)   │
+└─────────────┘    └──────────────┘    └─────────────┘
+                            │
+                            ▼
+              ┌──────────────────────┐
+              │   Train/Test Split   │
+              │      (80/20)         │
+              └──────────────────────┘
+                            │
+              ┌─────────────┴─────────────┐
+              ▼                           ▼
+      ┌──────────────┐          ┌──────────────┐
+      │   Training   │          │   Testing    │
+      │   (4 Models) │          │ & Evaluation │
+      └──────────────┘          └──────────────┘
+              │                           │
+              └─────────────┬─────────────┘
+                            ▼
+                ┌──────────────────────┐
+                │   Performance        │
+                │   Metrics & Plots    │
+                └──────────────────────┘
+```
+
+### Core Components
+
+**1. Feature Extractor**
+- Loads audio at 22,050 Hz
+- Extracts 13 MFCC coefficients
+- Aggregates via mean + standard deviation
+- Output: 26-dimensional feature vector
+
+**2. Model Trainer**
+- K-Nearest Neighbors (KNN)
+- Decision Trees
+- Random Forest (ensemble)
+- Support Vector Machine (SVM)
+
+**3. Optimizer**
+- GridSearchCV with 3-fold cross-validation
+- Reduced parameter grids for speed
+- Parallel processing (`n_jobs=-1`)
+
+**4. Evaluator**
+- Accuracy, Precision, Recall, F1-Score
+- Confusion matrices
+- Per-genre performance analysis
 
 ---
 
@@ -122,70 +191,65 @@ Open the notebook and update the `DATASET_PATH` variable with your local path.
 
 ### Model Performance Summary
 
-| Model | Accuracy | Precision | Recall | F1-Score |
-|-------|----------|-----------|--------|----------|
-| KNN (Tuned) | TBD | TBD | TBD | TBD |
-| Decision Tree (Tuned) | TBD | TBD | TBD | TBD |
-| Random Forest (Tuned) | TBD | TBD | TBD | TBD |
-| SVM (Tuned) | TBD | TBD | TBD | TBD |
+| Model | Accuracy | Precision | Recall | F1-Score | Best Hyperparameters |
+|-------|----------|-----------|--------|----------|---------------------|
+| **SVM (Tuned)** | **70.0%** 🏆 | **70.3%** | **70.0%** | **70.0%** | C=10, kernel=rbf |
+| Random Forest (Tuned) | 65.0% | 64.9% | 65.0% | 64.6% | n_estimators=100, max_depth=20 |
+| KNN (Tuned) | 62.5% | 64.2% | 62.5% | 62.7% | n_neighbors=5, weights=distance |
+| Decision Tree (Tuned) | 49.5% | 51.4% | 49.5% | 50.1% | max_depth=20, min_samples_split=2 |
 
-*Note: Results will be populated after running the complete notebook.*
+### 🎯 Best Model: Support Vector Machine (SVM)
+- **Test Accuracy:** 70.0%
+- **Cross-Validation Score:** 68.46%
+- **Optimal Parameters:** C=10, RBF kernel
+- **Training Time:** ~30 seconds
 
 ### Key Findings
 
-- MFCC features effectively capture timbral characteristics for genre classification
-- Classical and metal genres typically achieve highest accuracy due to distinctive timbral profiles
-- Rock, country, and pop often confused due to similar instrumentation
-- Hyperparameter tuning provides measurable performance improvements
+✅ **Best Model: SVM** - Achieved 70% accuracy with RBF kernel  
+✅ **Classical & Metal** - Highest accuracy at 90% each (distinctive timbral signatures)  
+✅ **Strong Performance** - Jazz (75%), Pop (75%), Blues (70%)  
+⚠️ **Challenging Genres** - Disco (60%), Hiphop (60%), Reggae (55%)  
+📊 **Feature Quality** - 26-dim MFCCs provide sufficient spectral resolution
+
+### Per-Genre Performance (SVM Model)
+
+| Genre | Precision | Recall | F1-Score | Notes |
+|-------|-----------|--------|----------|-------|
+| **Classical** | 0.90 | 0.90 | 0.90 | Best - Distinctive orchestral timbre |
+| **Metal** | 0.90 | 0.90 | 0.90 | Best - Heavy distortion signature |
+| **Jazz** | 0.71 | 0.75 | 0.73 | Strong - Complex harmonics |
+| **Pop** | 0.65 | 0.75 | 0.70 | Good - Modern production |
+| **Blues** | 0.74 | 0.70 | 0.72 | Good - Guitar-driven |
+| **Country** | 0.72 | 0.65 | 0.68 | Moderate - Overlaps with rock |
+| **Rock** | 0.67 | 0.60 | 0.63 | Moderate - Similar to country/pop |
+| **Reggae** | 0.65 | 0.55 | 0.59 | Challenging - Rhythmic similarities |
+| **Hiphop** | 0.57 | 0.60 | 0.59 | Challenging - Electronic elements |
+| **Disco** | 0.52 | 0.60 | 0.56 | Challenging - Overlaps with hiphop |
+
+### Common Misclassifications
+
+- `Rock ↔ Country` - Guitar-driven instrumentation overlap (similar acoustic signatures)
+- `Pop ↔ Rock` - Modern production style similarities (electronic processing)
+- `Jazz ↔ Blues` - Shared harmonic structures (improvisation patterns)
+- `Disco ↔ Hiphop` - Similar rhythmic patterns (electronic dance beats)
+- `Country ↔ Rock` - Acoustic guitar and vocal style overlaps
 
 ---
 
-## 🎥 Project Presentation
-
-**[Link to Presentation Video]** *(Add YouTube/Google Drive link here after recording)*
-
-**Duration:** 10 minutes  
-**Format:** Technical walkthrough with live demo
-
----
-
-## 📁 Repository Structure
-
-```
-.
-├── Music Genre Final Project.ipynb  # Main Jupyter notebook
-├── requirements.txt                 # Python dependencies
-├── README.md                        # Project documentation
-├── .gitignore                       # Git ignore rules
-└── GTZAN/                          # Dataset folder (not in repo)
-```
-
----
-
-## 🏃 Running the Project
-
-### Quick Start
-
-1. Open the notebook:
-   ```bash
-   jupyter notebook "Music Genre Final Project.ipynb"
-   ```
-
-2. Run cells sequentially:
-   - **Cell 1-2:** Import libraries and configure dataset path
-   - **Cell 3-4:** Load audio files (~2-3 minutes)
-   - **Cell 5:** Extract MFCC features (~10-20 minutes)
-   - **Cell 6-8:** Exploratory data analysis
-   - **Cell 9-11:** Train and evaluate baseline models
-   - **Cell 12-14:** Hyperparameter tuning (~15-30 minutes)
-   - **Cell 15-17:** Generate visualizations and results
+## ⚡ Performance
 
 ### Expected Runtime
 
-- **Feature Extraction:** 10-20 minutes (CPU-dependent)
-- **Baseline Training:** 2-5 minutes
-- **Hyperparameter Tuning:** 15-30 minutes
-- **Total:** ~30-60 minutes
+| Phase | Duration |
+|-------|----------|
+| Feature Extraction | 3-5 minutes |
+| Baseline Training | 1-2 minutes |
+| Hyperparameter Tuning | 3-5 minutes |
+| Evaluation & Visualization | 1-2 minutes |
+| **TOTAL** | **~7-10 minutes** |
+
+*Optimized with reduced parameter grids and 3-fold CV*
 
 ---
 
@@ -193,85 +257,99 @@ Open the notebook and update the `DATASET_PATH` variable with your local path.
 
 ### Feature Engineering
 
-- **MFCCs:** 13 coefficients extracted using librosa
-- **Aggregation:** Mean and standard deviation across time frames
-- **Final Feature Vector:** 26 dimensions (13 means + 13 stds)
+```python
+# MFCC Configuration
+n_mfcc = 13              # Standard coefficient count
+aggregation = mean + std  # Temporal compression
+feature_dim = 26         # Final vector size (13×2)
+```
 
-### Hyperparameter Grids
+### Optimized Hyperparameter Grids
 
-**KNN:**
-- n_neighbors: [3, 5, 7, 9, 11]
-- weights: ['uniform', 'distance']
-- metric: ['euclidean', 'manhattan']
+**KNN**
+```python
+{'n_neighbors': [3, 5, 7], 'weights': ['uniform', 'distance']}
+```
 
-**Decision Tree:**
-- max_depth: [5, 10, 15, 20, None]
-- min_samples_split: [2, 5, 10]
-- min_samples_leaf: [1, 2, 4]
+**Decision Tree**
+```python
+{'max_depth': [10, 20, None], 'min_samples_split': [2, 5]}
+```
 
-**Random Forest:**
-- n_estimators: [50, 100, 200]
-- max_depth: [10, 20, None]
-- min_samples_split: [2, 5]
+**Random Forest**
+```python
+{'n_estimators': [50, 100], 'max_depth': [10, 20]}
+```
 
-**SVM:**
-- C: [0.1, 1, 10]
-- kernel: ['rbf', 'linear']
-- gamma: ['scale', 'auto']
+**SVM**
+```python
+{'C': [0.1, 1, 10], 'kernel': ['rbf', 'linear']}
+```
+
+---
+
+## 📁 Repository Structure
+
+```
+music-genre-classification/
+│
+├── Music Genre Final Project.ipynb  # Main implementation
+├── requirements.txt                 # Python dependencies
+├── README.md                        # This file
+├── .gitignore                       # Git ignore rules
+└── GTZAN/                          # Dataset (not in repo)
+    └── genres_original/
+        ├── blues/
+        ├── classical/
+        ├── country/
+        └── ... (10 genre folders)
+```
 
 ---
 
 ## 🚧 Challenges & Solutions
 
-1. **Inconsistent Audio Length** → Fixed duration loading with librosa
-2. **Computational Cost** → Efficient batch processing with progress tracking
-3. **Class Balance** → Stratified train/test splitting
-4. **Hyperparameter Tuning** → GridSearchCV with cross-validation
-5. **Feature Dimensionality** → Standard MFCC count (13) with mean+std aggregation
+| Challenge | Solution |
+|-----------|----------|
+| Inconsistent audio length | Fixed duration loading with librosa |
+| Computational cost | Efficient batch processing + progress tracking |
+| Class balance | Stratified train/test splitting |
+| Hyperparameter complexity | GridSearchCV with reduced grids |
+| Feature dimensionality | Standard MFCC count (13) with mean+std |
 
 ---
 
-## 🔮 Future Work
+## ️ Technologies
 
-- **Data Augmentation:** Pitch shifting, time stretching, noise injection
-- **Larger Datasets:** FMA, Million Song Dataset, Spotify API
-- **Advanced Features:** Mel spectrograms, chroma features, rhythm features
-- **Deep Learning:** CNNs on spectrograms, RNNs for temporal modeling
-- **Ensemble Methods:** Stacking multiple model predictions
-- **Real-Time Classification:** Streaming audio processing
-- **Multi-Label Classification:** Hybrid genres and sub-genres
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat-square)
+![Seaborn](https://img.shields.io/badge/Seaborn-3776AB?style=flat-square)
+
+**Core Libraries:**
+- `librosa` - Audio processing and MFCC extraction
+- `scikit-learn` - Machine learning models and evaluation
+- `pandas` & `numpy` - Data manipulation
+- `matplotlib` & `seaborn` - Visualization
 
 ---
 
 ## 📚 References
 
-- GTZAN Dataset: [Marsyas](http://marsyas.info/downloads/datasets.html)
-- Librosa Documentation: [librosa.org](https://librosa.org/)
-- Scikit-learn User Guide: [scikit-learn.org](https://scikit-learn.org/)
+- [GTZAN Dataset - Marsyas](http://marsyas.info/downloads/datasets.html)
+- [Librosa Documentation](https://librosa.org/)
+- [Scikit-learn User Guide](https://scikit-learn.org/)
+- [MFCCs Explained](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum)
 
 ---
 
-## 📄 License
+<div align="center">
 
-This project is for educational purposes as part of CAP 4630 coursework.
+*Music Genre Classification - AI-Powered Audio Analysis* ⚡
 
----
+</div>
 
-## 👤 Author
 
-**Andres Hernandez**  
-Florida Atlantic University  
-CAP 4630 - Introduction to Artificial Intelligence  
-Fall 2025
-
----
-
-## 🙏 Acknowledgments
-
-- Dr. Ahmed Imteaj for course instruction and guidance
-- GTZAN dataset creators for providing the music corpus
-- Open-source community for librosa and scikit-learn libraries
-
----
-
-**⭐ If you found this project helpful, please give it a star!**
